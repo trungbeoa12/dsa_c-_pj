@@ -54,6 +54,33 @@ g++ -std=c++17 -Wall -Wextra -g bai-tap/mang-vector/bai1.cpp -o bai-tap/mang-vec
 
 Khi chuyển sang bài khác, thay cả đường dẫn file `.cpp`, đường dẫn sau `-o` và đường dẫn sau `./` cho đúng bài.
 
+### Tạo lệnh `run` trên macOS
+
+Có thể thêm hàm sau vào file cấu hình zsh để biên dịch và chạy bài bằng một lệnh. Việc này cần thực hiện một lần trên mỗi máy Mac:
+
+1. Mở file cấu hình: `nano ~/.zshrc`.
+2. Thêm đoạn sau vào cuối file:
+
+   ```zsh
+   run() {
+       if [ "$#" -ne 1 ]; then
+           echo "Cach dung: run duong-dan/file.cpp"
+           return 1
+       fi
+
+       local src="$1"
+       local exe="${src%.cpp}"
+
+       g++ -std=c++17 -Wall -Wextra -g "$src" -o "$exe" &&
+           "$PWD/$exe"
+   }
+   ```
+
+3. Lưu file (`Ctrl + O`, `Enter`, `Ctrl + X` trong nano), rồi nạp cấu hình: `source ~/.zshrc`.
+4. Trong Terminal, chuyển đến thư mục gốc của project và chạy, ví dụ: `run bai-tap/set/set4.cpp`.
+
+Hàm `run` cần `g++`; cài Xcode Command Line Tools bằng `xcode-select --install` nếu máy chưa có. Các cấu hình `.zshrc` chỉ áp dụng trên máy hiện tại. Không cần chép các dòng có đường dẫn riêng của máy như Maven, MySQL hoặc thiết lập prompt.
+
 ## 5. Dùng phím tắt trong VS Code
 
 - **Build: `Cmd + Shift + B`**. Với task chỉ biên dịch, thao tác này tạo file thực thi nhưng chưa chạy chương trình, nên `output.txt` chưa có kết quả mới.
