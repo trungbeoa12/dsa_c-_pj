@@ -1,0 +1,7 @@
+*.o
+*.out
+*.dSYM/
+.DS_Store
+main
+/bai-tap/mang-vector/bai1
+/templates/khungcode
